@@ -1,0 +1,21 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+
+{% block titulo %} cambiar_contraseña {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/registro.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <h2>Cambiar contraseña</h2>
+        <div class="espacio solo">
+            <input type="password" name="nueva_contrasena" placeholder="Nueva Contraseña" required><br>
+        </div>
+        <div class="espacio solo">
+            <input type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" required><br>
+        </div>
+
+        <button class="submit-button" type="submit">CAMBIAR CONTRASEÑA</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block titulo %} - recuperar_cuenta {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/recuperar_cuenta.css' %}"> {% endblock %}
+
+
+{% block cuerpo %}
+        <a href="{% url 'login' %}">←</a>
+        <h2>CAMBIAR CONTRASEÑA</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="espacio">
+                <input type="email" name="correo_electronico" placeholder="Correo Electrónico" required>
+            </div>
+            <p id="textocentrar">En el correo que usted acaba de diligenciar se le enviara el formulario en el cual usted debe de para poder cambiar su contraseña</p>
+            <button class="submit-button">Cambiar Contraseña</button>
+        </form>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} - Eventos_Comprados {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/gestion_datos.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+
+    <section class="hero">
+        <div id="texto-wrap">
+            {% if cliente.rol == 'cliente' %}
+                <h1>CLIENTE</h1>
+            {% elif cliente.rol == 'director' %}
+                <h1>DIRECTOR</h1>
+            {% elif cliente.rol == 'administrador' %}
+                <h1>ADMINISTRADOR</h1>
+            {% endif %}
+        </div>
+    </section>
+
+
+    <div id="divisionIzquierda">
+        <nav class="navegacionCliente">
+            {% if cliente.rol == 'cliente' %}
+                <a class="linksNavegacion" href="{% url 'cliente' %}">CUENTA</a>
+                <a id="actual" class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+            {% elif cliente.rol == 'director' %}
+                <a class="linksNavegacion" href="{% url 'director' %}">CUENTA</a>
+                <a class="linksNavegacion" href="{% url 'historial_eventos' %}">HISTORIAL DE EVENTOS</a>
+                <a class="linksNavegacion" href="{% url 'gestion_evento' %}">ESTADISTICAS DEL EVENTO</a>
+                &nbsp; &nbsp; &nbsp;
+                <a id="actual" class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+            {% elif cliente.rol == 'administrador' %}
+                <a class="linksNavegacion" href="{% url 'listar_clientes' %}">GESTION CLIENTES</a>
+                <a class="linksNavegacion" href="{% url 'listar_eventos' %}">GESTION DE EVENTOS</a>
+                <a class="linksNavegacion" href="{% url 'listar_facturas' %}">FACTURAS</a>
+                <a class="linksNavegacion" href="{% url 'listar_detalle_facturas' %}">DETALLE FACTURAS</a>
+                &nbsp; &nbsp; &nbsp;
+                <a id="actual" class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+                <a class="linksNavegacion" href="{% url 'gestion_evento' %}">GESTION DE TUS EVENTOS</a>
+            {% endif %}
+        </nav>
+    </div>
+
+    <h2 class="titulosCliente">FACTURAS</h2>
+
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}
+
+
+
+
+    {% if factura %}
+        <div class="informacion">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Imagen</th>
+                        <th scope="col">Evento</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Metodo Pago</th>
+                        <th scope="col">Fecha</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detalle in detalle_factura %}
+                        <tr>
+                            <td> <img src="{{ detalle.idServicio.imagen.url }}" alt="" width="150px" height="150px" > </td>
+                            <th scope="row">{{ detalle.idServicio.titulo }}</th>
+                            <td>{{ detalle.cantidad }}</td>
+                            <td>{{ detalle.idFactura.total }}</td>
+                            <td>{{ detalle.idFactura.get_metodoPago_display }}</td>
+                            <td>{{ detalle.idFactura.fecha }}</td>
+                            <td><a href="{% url 'factura_pdf' detalle.idFactura.id %}" target="_blank" class="btn btn-success">Ver PDF</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>no hay datos aun...</p>
+    {% endif %}
+{% endblock %}

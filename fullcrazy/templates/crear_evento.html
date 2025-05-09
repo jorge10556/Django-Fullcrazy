@@ -1,0 +1,77 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/crear_evento.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+        {% if request.session.auth.rol == "cliente" %}
+        <a href="{% url 'cliente' %}">←</a>
+        {% elif request.session.auth.rol == "director" %}
+        <a href="{% url 'historial_eventos' %}">←</a>
+
+        {% endif %}
+
+
+        {% if servicio %}
+        <h2>ACTUALIZAR</h2>
+        {% else %}
+        <h2>CREAR EVENTO</h2>
+        {% endif %}
+        
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            
+            <div class="espacio">
+                <input value="{% if servicio %}{{ servicio.titulo }}{% else %}{{ form_data.titulo|default:'' }}{% endif %}" type="text" name="titulo" placeholder="Titulo" required>
+            </div>
+            <div class="espacio">
+                <textarea name="informacion" id="" placeholder="Toda la información del evento" rows="2" required>{% if servicio %}{{ servicio.informacion }}{% else %}{{ form_data.informacion|default:'' }}{% endif %}</textarea>   
+            </div>
+            <div class="espacio">
+                
+                {% if not servicio %}
+                    <input value="{{ form_data.precio|default:'' }}" type="text" name="precio" placeholder="Precio en pesos colombianos" required>
+                {% endif %}
+                    <input value="{% if servicio %}{{ servicio.categoria }}{% else %}{{ form_data.categoria|default:'' }}{% endif %}" type="text" name="categoria" placeholder="Categoria" required>
+            </div>
+            <div class="espacio solo">
+                <textarea name="requisito" id="" placeholder="Requisitos necesarios para las personas que van a asistir" rows="2" required>{% if servicio %}{{ servicio.requisito }}{% else %}{{ form_data.requisito|default:'' }}{% endif %}</textarea>   
+            </div>
+            <div class="espacio">
+                {% if servicio %}
+
+                {% else %} 
+                    <input value="{{ form_data.fecha|date:'Y-m-d\\TH:i' }}" type="datetime-local" name="fecha" placeholder="Fecha del evento" min="{{fecha_actual}}" required>
+                {% endif %}
+                    <input value="{% if servicio %}{{ servicio.cupo_maximo }}{% else %}{{ form_data.cupo_maximo|default:'' }}{% endif %}" type="text" name="cupo_maximo" placeholder="cantidad maxima de personas" required>
+            </div>
+            
+            <div id="subir_imagen">
+                <input type="file" name="imagen" id="imagen" accept="image/*" >
+            </div> 
+
+
+            {% if servicio %}
+                <p>Imagen actual:</p>
+                <div id="imagen_actual">
+                    <img src="{{ servicio.imagen.url }}" alt="Imagen del servicio" style="max-width: 200px;" >
+                </div>
+            {% endif %}
+
+
+            <div class="espacio">
+                <input value="{% if servicio %}{{ servicio.direccion }}{% else %}{{ form_data.direccion|default:'' }}{% endif %}" type="text" name="direccion" placeholder="Direccion del evento" required>
+            </div>
+            
+
+            <div id="aceptarTerminos">
+                <input type="checkbox" name="aceptar" id="" required>
+                <label for="">Acepto los <a href="terminos.html" target="_BLANK">terminos y condiciones.</a></label>
+            </div>
+
+            <button class="enviar" id="botoncrear" type="submit">{% if servicio %}ACTUALIZAR{% else %}CREAR EVENTO{% endif %}</button>
+
+        </form>
+{% endblock %}
+

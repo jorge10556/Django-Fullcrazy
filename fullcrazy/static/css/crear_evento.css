@@ -1,0 +1,92 @@
+body {
+    background-image: url(/static/img/fondo2.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+.espacio {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.espacio input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.espacio.solo input {
+    width: 100%;
+}
+.espacio.solo {
+    display: flex;
+}
+.espacio input:focus {
+    outline: none;
+    border-color: #000000;
+}
+.enviar {
+    width: 100%;
+    padding: 10px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+#botoncrear{
+    color: #ffffff;
+}
+
+
+.enviar:hover {
+    background-color: #0056b3;
+}
+
+#aceptarTerminos{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 10px;    
+}
+
+textarea {
+    font-family: inherit; /* Hereda la fuente del contenedor */
+    width: 100%;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 8px;
+    font-size: 16px;
+    resize: none; /* Evita el redimensionado manual */
+}
+
+select {
+    width: 100%;
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: white; 
+    appearance: none; /* Elimina estilos predeterminados del sistema */
+}
+
+
+#subir_imagen{
+    margin-bottom: 10px;
+
+}
+
+#imagen_actual{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 7px 0 13px 0;
+}

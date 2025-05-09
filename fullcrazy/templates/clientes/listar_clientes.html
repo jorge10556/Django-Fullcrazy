@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/gestion_datos.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+    <section class="hero">
+        <div id="texto-wrap">
+            <h1>ADMINISTRADOR</h1>
+        </div>
+    </section>
+
+    <div id="divisionIzquierda">
+        <nav class="navegacionDirector">
+            <a id="actual" class="linksNavegacion" href="{% url 'listar_clientes' %}">GESTION CLIENTES</a>
+            <a class="linksNavegacion" href="{% url 'listar_eventos' %}">GESTION DE EVENTOS</a>
+            <a class="linksNavegacion" href="{% url 'listar_facturas' %}">FACTURAS</a>
+            <a class="linksNavegacion" href="{% url 'listar_detalle_facturas' %}">DETALLE FACTURAS</a>
+            &nbsp; &nbsp; &nbsp;
+            {% if factura %}
+                <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+            {% endif %}
+            {% if servicio %}
+                <a class="linksNavegacion" href="{% url 'gestion_evento' %}">GESTION DE TUS EVENTOS</a>
+            {% endif %}
+        </nav>
+    </div>
+
+    <h2 class="titulosCliente">CLIENTES</h2>
+
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}
+
+    <a href="{% url 'agregar_clientes' %}" class="btn btn-success">Agregar</a>
+    {% if datos_clientes %}
+        <div class="informacion">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Tipo Doc.</th>
+                        <th scope="col">Numero Doc.</th>
+                        <th scope="col">Correo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in datos_clientes %}
+                        <tr>
+                            <td>{{ cliente.id }}</td>
+                            <td>{{ cliente.nombre }}</td>
+                            <td>{{ cliente.apellido }}</td>
+                            <td>{{ cliente.get_rol_display }}</td>
+                            <td>{{ cliente.telefono }}</td>
+                            <td>{{ cliente.tipoDocumento }}</td>
+                            <td>{{ cliente.numeroDocumento }}</td>
+                            <td>{{ cliente.email }}</td>
+                            <td>
+                                <a href="{% url 'editar_clientes' cliente.id %}" class="btn btn-info"><i class="bi bi-pencil-square"></i></a>
+                                <a href="javascript:confirmar_eliminar(`{% url 'eliminar_clientes' cliente.id %}`)" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>No hay datos aun...</p>
+    {% endif %}
+
+{% endblock %}

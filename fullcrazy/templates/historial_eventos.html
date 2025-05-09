@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/director.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+    <section class="hero">
+        <div id="texto-wrap">
+            <h1>DIRECTOR</h1>
+        </div>
+    </section>
+
+    <div >
+        <nav class="navegacionDirector">
+            <a class="linksNavegacion" href="{% url 'director' %}">CUENTA</a>
+            <a id="actual" class="linksNavegacion" href="{% url 'historial_eventos' %}">HISTORIAL DE EVENTOS</a>
+            <a class="linksNavegacion" href="{% url 'gestion_evento' %}">ESTADISTICAS DEL EVENTO</a>
+            &nbsp; &nbsp; &nbsp;
+            <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+
+        </nav>
+    </div>
+
+
+    <h2 class="titulosDirector">HISTORIAL DE EVENTOS</h2>
+
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}
+
+    <a href="{% url 'crear_evento' %}" class="btn btn-success">Crear Evento</a>
+
+
+    {% if servicios %}
+    <div id="tarjetasEventos">
+        {% for servicio_creado in servicios %}
+        <div class="card mb-3" style="max-width: 700px; width: 800px; height: 350px; max-height: 350px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ servicio_creado.imagen.url }}" class="img-fluid rounded-start" alt="imagen" style="max-height: 350px; height: 350px; width: 230px; max-width: 300px;">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h3>{{ servicio_creado.titulo }}</h3>
+                        <p>Informacion: {{ servicio_creado.informacion }} <br>
+                        Requisito: {{ servicio_creado.requisito }} <br>
+                        Direccion: {{ servicio_creado.direccion }} </p>
+                        <h5>Precio: {{ servicio_creado.precio }}</h5>
+                        <a href="{% url 'participantes' servicio_creado.id %}" class="btn btn-primary">Participantes</a>
+                        <a href="{% url 'editar_eventos_director' servicio_creado.id %}" class="btn btn-info">Editar</a>
+                        <a href="javascript:confirmar_eliminar(`{% url 'eliminar_eventos_director' servicio_creado.id %}`)" class="btn btn-secondary">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p>no hay servicios agregados aun....</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 40px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .datos {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .total {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .info-pago {
+            margin-top: 30px;
+            border: 1px solid #000;
+            padding: 15px;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FACTURA</h1>
+        <div>
+            <strong>N°: </strong>{{ factura.id }}
+        </div>
+    </header>
+
+    <div class="datos">
+        <div>
+            <h4>DATOS DEL CLIENTE</h4>
+            <p>{{ factura.idCliente.nombre }} {{ factura.idCliente.apellido }}</p>
+            <p>{{ factura.idCliente.email }}</p>
+            <p>{{ factura.idCliente.telefono }}</p>
+            <p>{{ factura.idCliente.direccion }}</p>
+        </div>
+        <div>
+            <h4>DATOS DE LA EMPRESA</h4>
+            <p>FullCrazy</p>
+            <p>montoyarojassimon@gmail.com</p>
+            <p>3008825744</p>
+            <p>Cl. 63 #58B-03</p>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Detalle</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalles %}
+            <tr>
+                <td>{{ item.idServicio.titulo }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>${{ item.precioUnitario }}</td>
+                <td>${{ item.subtotal }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total">
+        <h3>TOTAL: ${{ factura.total }}</h3>
+    </div>
+
+    <div class="info-pago">
+        <h4>INFORMACIÓN DE PAGO</h4>
+        <p>Método de pago: {{ factura.get_metodoPago_display }}</p>
+        <p>Fecha de pago: {{ factura.fecha|date:"d/m/Y H:i" }}</p>
+        <p>ID del cliente: {{ factura.idCliente.id }}</p>
+    </div>
+
+    <footer>
+        <h4>FullCrazy</h4>
+    </footer>
+</body>
+</html>

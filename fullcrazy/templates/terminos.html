@@ -1,0 +1,14 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block titulo %} - Terminos y Condiciones {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/terminos.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+        <a href="{% url 'index' %}">←</a>
+        <h2>TERMINOS Y CONDICIONES</h2>
+        <form id="textcenter" action="" >
+            {% csrf_token %}
+            <p>El presente contrato regula los términos y condiciones bajo los cuales FullCrazy ofrece el uso de su software publicitario para la promoción de eventos al Cliente. FullCrazy concede al Cliente una licencia no exclusiva e intransferible para el uso del Software únicamente con fines de promoción y publicidad de eventos. El Cliente se compromete a no distribuir, vender o sublicenciar el Software, ni a realizar ingeniería inversa del mismo. El Cliente es responsable de la legalidad y veracidad del contenido publicitario que se difunda a través del Software. El Cliente se compromete a no utilizar el Software para promover eventos ilegales, ofensivos o que infrinjan derechos de terceros. El incumplimiento de esta cláusula puede conllevar la suspensión o cancelación de la cuenta del Cliente sin derecho a reembolso. FullCrazy garantiza que el Software funcionará conforme a las especificaciones descritas en la documentación proporcionada. Sin embargo, no se garantiza que el funcionamiento sea ininterrumpido o libre de errores. En caso de fallos técnicos, el equipo desarrollador (FullCrazy) se compromete a corregir los errores dentro de un plazo razonable. El Cliente acepta que el uso del Software es bajo su propia responsabilidad. El Cliente, al aceptar estos Términos y Condiciones, declara haber leído y comprendido todas las cláusulas aquí contenidas.</p>
+        </form>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+
+{% block cuerpo %}
+
+    <section class="hero">
+        {% if messages %}
+            <div class="mensajes">
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {% else %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {% endif %}
+                        {{message}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                    </div>
+                {% endfor %}
+            </div>    
+        {% endif %}
+
+        <div id="texto-wrap">
+            <h1>Bienvenidos a FullCrazy</h1>
+            <h4>Descubre los mejores eventos creados en el area metropolitana.</h4>
+        </div>
+    </section>
+    
+
+        <h2 id="titulopopulares">EVENTOS POPULARES</h2>
+    
+
+    <section class="flyers">
+        {% for servicios in vista_servicios %}
+        <div class="flyer">
+            <a href="{% url 'evento_especifico' servicios.id %}">
+                <img src="{{ servicios.imagen.url }}" alt="imagen">
+            </a>
+            <h3>{{servicios.titulo}}</h3>
+        </div>
+        {% endfor %}
+    </section>
+
+    <a id="mas" href="{% url 'eventos_generales' %}"><i class="bi bi-plus-circle"></i></a>
+
+
+
+    <section class="testimonials">
+        <h2>Acerca de Nosotros</h2>
+        <h4><p>La aplicación propuesta es una plataforma integral de gestión de eventos sociales, centrada en la creación y participación en fiestas. Diseñada para usuarios que buscan organizar eventos sociales memorables o simplemente disfrutar de experiencias festivas, la aplicación proporcionará un conjunto completo de herramientas para facilitar la planificación, ejecución y participación en eventos sociales de manera fácil y atractiva.</p></h4>
+    </section>
+
+
+    <section>
+        <h2 id="contac">Contáctanos</h2> 
+        <div class="contact-form">
+            <div id="cajita">
+                <img id="borde-imagen" src="{% static 'img/photo-1459749411175-04bf5292ceea.jpg' %}" alt="imagen">
+            </div>
+            <div>
+
+                <form method="post" action="{% url 'contactanos' %}">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Tu nombre" name="nombre" required>
+                    <input type="email" placeholder="Tu correo" name="email" required>
+                    <textarea placeholder="Tu mensaje" rows="5" name="mensaje" required></textarea>
+                    <button type="submit">Enviar</button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+        
+{% endblock %}
+

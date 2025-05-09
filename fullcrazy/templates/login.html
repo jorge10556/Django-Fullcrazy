@@ -1,0 +1,29 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block titulo %} - Login {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/login.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+
+        <a id="salir" href="{% url 'index' %}"><i class="bi bi-arrow-left"></i></a>
+
+
+
+        <img src="{% static 'img/logo.png' %}" alt="Logo">
+        <h1>Bienvenido a FullCrazy</h1>
+        <form method="post" action="">
+            {% csrf_token %}
+            <input value="{{ form_data.email|default:'' }}" type="email" name="email" placeholder="Correo" required>
+            <input type="password" name="contrasena" placeholder="Ingresa la contraseña" required>
+            <button type="submit">Ingresar</button>
+        </form>
+        <div class="forgot-password">
+            <a href="{% url 'recuperar_cuenta' %}">¿Olvidaste tu contraseña?</a>
+            <p>Si no tienes cuenta puedes registrarte <a href="{% url 'registro' %}">aqui</a></p>
+        </div>
+        
+        <div class="terms">
+            Para continuar, Debes estar de acuerdo con nuestros<a href="{% url 'terminos' %}" target="_BLANK"> terminos y condiciones</a>.
+        </div>
+{% endblock %}

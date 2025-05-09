@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %}<link rel="stylesheet" href="{% static 'css/factura.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+
+    {% if messages %}
+    <div class="mensajes">
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {% else %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {% endif %}
+                {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+            </div>
+        {% endfor %}
+    </div>    
+    {% endif %}
+
+
+    <div id="comienzo">
+        <div id="textoIzquierda">
+        <h1>FULLCRAZY</h1>
+        <h3>ORDEN</h3>
+        <h3>FULLCRAZY.COM NUMERO DE ORDEN: {{ factura.id }}</h3>
+        </div> 
+        <div id="imagenLogo">
+            <img id="imagenFactura" src="{% static 'img/logo.png' %}" alt="imagen">
+        </div>
+    </div>
+
+
+    <br><br>
+    {% for detalle in detalles %}
+        <div class="contenedoresFactura">
+            <div id="contenedorFecha">
+                <h3>{{ factura.fecha }}</h3>
+            </div>
+            <div id="contenedorServicios">
+                <h4>EVENTOS ORDENADOS:</h4>
+                <h5>EVENTOS:  {{detalle.idServicio.titulo }} </h5>
+                <h5>CANTIDAD: {{detalle.cantidad}} </h5>
+                <h5>SUBTOTAL: {{detalle.subtotal}} </h5>
+                <h5>VENDIDO POR FULLCRAZY</h5>
+            </div>
+            <div id="contenedorEnvio">
+                <h4>INFORMACION DEL ENVIO:</h4>
+                <h5>NOMBRE: {{ factura.idCliente.nombre }}</h5>
+                <h5>TELEFONO: {{ factura.idCliente.telefono }} </h5>
+                <h5>CORREO: {{ factura.idCliente.email }} </h5>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <div class="contenedoresFactura">
+        <div id="infoPago">
+            <h3>INFORMACION DEL PAGO</h3>
+        </div>
+        <div id="info2Pago">
+            <h5>METODO DE PAGO: {{ factura.get_metodoPago_display }}</h5>
+            <h5>VALOR TOTAL: ${{ factura.total }}</h5>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,200 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    padding: 20px 20px;
+}
+
+#rayasMenu{
+    font-size: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+#buscador{
+    border-radius: 10px;
+}
+
+.menu {
+    display: flex;
+}
+
+
+.hero{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, rgb(0 0 0 / .5),rgb(0 0 0 / .5)),url("/static/img/fiesta56.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+#texto-wrap{
+    color: #ffffff;
+    width: 50%;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+}
+
+#titulopopulares{
+    padding-top: 10px;
+    text-align: center;
+    text-shadow: 1px 1px 1px;
+    margin: 18px;
+}
+
+.flyers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.flyer {
+    margin: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flyer img {
+    width: 100%;
+    height: 300px;
+}
+
+.flyer h3 {
+    padding: 10px;
+    background: #fff;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+
+#mas{
+    font-size: 70px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+
+.testimonials {
+    padding: 50px;
+    background-color: #261127;
+    text-align: center;
+    color: rgb(255, 255, 255);
+
+}
+
+.testimonials h2 {
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.testimonials p {
+    font-family: Arial, sans-serif;
+    margin-bottom: 20px;
+}
+
+
+#contac{
+    text-align: center;
+    padding: 20px;
+}
+
+#cajita{
+    display: flex;
+    justify-content: center;
+    width: 600px;
+    height: 400px;
+}
+
+#borde-imagen{
+    border-radius: 10px;
+}
+
+
+.contact-form {
+    padding: 10px;
+    background-color:#ffffff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-form form {
+    padding: 40px;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: #555;
+}
+
+
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 5px 0;
+}

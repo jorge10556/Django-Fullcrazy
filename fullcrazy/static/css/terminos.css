@@ -1,0 +1,11 @@
+body {
+    background-image: url(/static/img/photo-1459749411175-04bf5292ceea.jpg);
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+#textcenter{
+    text-align: center;
+}

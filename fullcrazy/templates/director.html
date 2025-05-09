@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} - Director {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/director.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+    <section class="hero">
+        <div id="texto-wrap">
+            <h1>DIRECTOR</h1>
+        </div>
+    </section>
+
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}
+
+    <div >
+        <nav class="navegacionDirector">
+            <a id="actual" class="linksNavegacion" href="{% url 'director' %}">CUENTA</a>
+            <a class="linksNavegacion" href="{% url 'historial_eventos' %}">HISTORIAL DE EVENTOS</a>
+            <a class="linksNavegacion" href="{% url 'gestion_evento' %}">ESTADISTICAS DEL EVENTO</a>
+            &nbsp; &nbsp; &nbsp;
+            <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+        </nav>
+    </div>
+
+    <div class="informacion">
+        <h4 id="infoPer">Informacion Personal</h4>
+        <h4>Nombre: {{ director.nombre }} </h4>
+        <h4>Apellido: {{ director.apellido }} </h4>
+        <h4>Telefono: {{ director.telefono }} </h4>
+        <h4>Email: {{ director.email }} </h4>
+        <h4>Numero de documento: {{ director.numeroDocumento }} </h4>
+        <a href="{% url 'editar_perfil' director.id %}">Editar</a> 
+    </div>
+
+{% endblock %}

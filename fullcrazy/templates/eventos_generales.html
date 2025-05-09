@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} - Eventos_Generales {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/eventos_generales.css' %}"> {% endblock %}
+
+{% block cuerpo %}    
+    <div class="contenedor">
+        <div class="eventos">
+            {% for servicio in datos_servicios %}
+            <div class="evento">
+                <a href="{% url 'evento_especifico' servicio.id %}">
+                    <img src="{{ servicio.imagen.url }}" alt="imagen">
+                </a>
+                <p>{{servicio.titulo}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>    
+{% endblock %}
+
+
+
+
+

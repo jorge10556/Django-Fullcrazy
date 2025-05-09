@@ -1,0 +1,64 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/registro.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+
+        <a href="{% url 'listar_clientes' %}">←</a>
+        {% if datos %}
+            <h2>EDITAR {{datos.id}}</h2>
+        {% else %}
+            <h2>CREAR</h2>
+        {% endif %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            
+                <div class="espacio">
+                    <input value="{% if datos %}{{ datos.nombre }}{% else %}{{ form_data.nombre|default:'' }}{% endif %}" type="text" name="nombre" placeholder="Nombre" >
+                    <input value="{% if datos %}{{ datos.apellido }}{% else %}{{ form_data.apellido|default:'' }}{% endif %}" type="text" name="apellido" placeholder="Apellido" >
+                </div>
+
+                <div class="espacio">
+                    <select name="rol" id="rol" >
+                        <option value="" disabled {% if not datos and not form_data.rol %} selected {% endif %}>Selecciona un rol</option>
+                        <option value= "cliente" {% if datos.rol == "cliente" or form_data.rol == 'cliente' %} selected {% endif %}>Cliente</option>
+                        <option value= "director" {% if datos.rol == "director" or form_data.rol == 'director' %} selected {% endif %}>Director</option>
+                        <option value= "administrador" {% if datos.rol == "administrador" or form_data.rol == 'administrador' %} selected {% endif %}>Administrador</option>
+                    </select>
+                </div>
+
+                <div class="espacio solo">
+                    <input value="{% if datos %}{{ datos.telefono }}{% else %}{{ form_data.numero_contacto|default:'' }}{% endif %}" type="number" name="numero_contacto" placeholder="Número de Contacto" >
+                </div>
+
+                <div class="espacio">
+                    <select name="tipo_documento" >
+                        <option value="" disabled {% if not datos and not form_data.tipo_documento %} selected {% endif %}>Selecciona un tipo de documento</option>
+                        <option value= 1 {% if datos.tipoDocumento == 1 or form_data.tipo_documento == '1' %} selected {% endif %}>Tarjeta de Identidad (TI)</option>
+                        <option value= 2 {% if datos.tipoDocumento == 2 or form_data.tipo_documento == '2' %} selected {% endif %}>Cédula de Ciudadanía (CC)</option>
+                        <option value= 3 {% if datos.tipoDocumento == 3 or form_data.tipo_documento == '3' %} selected {% endif %}>Cédula de Extranjeria  (CE)</option>
+                        <option value= 4 {% if datos.tipoDocumento == 4 or form_data.tipo_documento == '4' %} selected {% endif %}>Pasaporte (PA)</option>
+                    </select>                
+                    <input value="{% if datos %}{{ datos.numeroDocumento }}{% else %}{{ form_data.numero_documento|default:'' }}{% endif %}" type="number" name="numero_documento" placeholder="Número de Documento" >
+                </div>
+                
+                <div class="espacio solo">
+                    <input value="{% if datos %}{{ datos.email }}{% else %}{{ form_data.correo_electronico|default:'' }}{% endif %}" type="email" name="correo_electronico" placeholder="Correo Electrónico" >
+                </div>
+
+                <div class="espacio">
+                    <input value="" type="password" name="crear_contrasena" placeholder="Crear Contraseña" >
+                    <input value="" type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" >
+                </div>
+
+
+                <div id="aceptarTerminos">
+                    <input type="checkbox" name="aceptar" id="aceptar" required>
+                    <label for="">Acepto los <a href="terminos.html" target="_BLANK">terminos y condiciones.</a></label>
+                </div>
+
+                <button class="submit-button" type="submit">{% if datos %} ACTUALIZAR {% else %} AGREGAR CUENTA  {% endif %}</button>
+            </form>
+{% endblock %}

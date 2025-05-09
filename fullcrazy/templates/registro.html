@@ -1,0 +1,73 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block titulo %} - Registro {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/registro.css' %}"> {% endblock %}
+
+
+{% block cuerpo %}
+        
+        {% if datos %}
+            {% if datos.rol == 'cliente' %}
+                <a href="{% url 'cliente' %}">←</a>
+                <h2>ACTUALIZAR DATOS</h2>
+            {% elif datos.rol == 'director' %}
+                <a href="{% url 'director' %}">←</a>
+                <h2>ACTUALIZAR DATOS</h2>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}">←</a>
+            <h2>CREAR MI CUENTA | REGISTRARME</h2>
+        {% endif %}
+
+        {% if datos %}
+            <form action="{% url 'editar_perfil' datos.id %}" method="POST">
+        {% else %}
+            <form action="{% url 'registro' %}" method="POST">
+        {% endif %}
+
+
+            {% csrf_token %}
+            <div class="espacio">
+                <input value="{% if datos %}{{ datos.nombre }}{% else %}{{ form_data.nombre|default:'' }}{% endif %}" type="text" name="nombre" placeholder="Nombre" required>
+                <input value="{% if datos %}{{ datos.apellido }}{% else %}{{ form_data.apellido|default:'' }}{% endif %}" type="text" name="apellido" placeholder="Apellido" required>
+            </div>
+            {% if datos %}
+
+            {% else %}
+            <div class="espacio">
+                <select name="tipo_documento" required>
+                    <option value="" disabled {% if not datos and not form_data.tipo_documento %}selected{% endif %}>Selecciona un tipo de documento</option>
+                    <option value="1" {% if datos.tipoDocumento == 1 or form_data.tipo_documento == '1' %} selected {% endif %}>Tarjeta de Identidad (TI)</option>
+                    <option value="2" {% if datos.tipoDocumento == 2 or form_data.tipo_documento == '2' %} selected {% endif %}>Cédula de Ciudadanía (CC)</option>
+                    <option value="3" {% if datos.tipoDocumento == 3 or form_data.tipo_documento == '3' %} selected {% endif %}>Cédula de Extranjeria  (CE)</option>
+                    <option value="4" {% if datos.tipoDocumento == 4 or form_data.tipo_documento == '4' %} selected {% endif %}>Pasaporte (PA)</option>
+                </select>                
+                <input value="{% if datos %}{{ datos.numeroDocumento }}{% else %}{{ form_data.numero_documento|default:'' }}{% endif %}" type="number" name="numero_documento" placeholder="Número de Documento" required>
+            </div>
+            {% endif %}
+            
+            <div class="espacio solo">
+                <input value="{% if datos %}{{ datos.telefono }}{% else %}{{ form_data.numero_contacto|default:'' }}{% endif %}" type="number" name="numero_contacto" placeholder="Número de Contacto" required>
+            </div>
+            <div class="espacio solo">
+                <input value="{% if datos %}{{ datos.email }}{% else %}{{ form_data.correo_electronico|default:'' }}{% endif %}" type="email" name="correo_electronico" placeholder="Correo Electrónico" required>
+            </div>
+
+            <div class="espacio">
+                <input  type="password" name="crear_contrasena" placeholder="Crear Contraseña" required>
+                <input  type="password" name="confirmar_contrasena" placeholder="Confirmar Contraseña" required>
+            </div>
+            <div id="aceptarTerminos">
+                <input type="checkbox" name="aceptar" id="aceptar" required>
+                <label for="">Acepto los <a href="{% url 'terminos' %}" target="_BLANK"> terminos y condiciones.</a></label>
+            </div>
+
+            {% if datos %}
+                <button class="submit-button" type="submit">EDITAR</button>
+            {% else %}
+                <button class="submit-button" type="submit">CREAR CUENTA</button>
+            {% endif %}
+            </form>
+
+{% endblock %}

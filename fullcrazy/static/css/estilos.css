@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    padding: 20px 20px;
+}
+
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+#buscador{
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+}
+
+.menu {
+    display: flex;
+}
+
+
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+.dropdown-item{
+    color: black;
+}
+
+.seccionNav{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.contenedor-menu {
+    position: relative;
+    display: inline-block;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+
+.muneNavegador li a{
+    text-decoration: none;
+    padding: 0px 15px;
+    display: block;
+    background-color: black;
+}
+
+.muneNavegador li a:hover{
+    background-color: #5e5e5e;
+}
+
+.muneNavegador > li{
+    float: left;
+} 
+
+.muneNavegador li ul{
+    display:none;
+    position: absolute;
+    min-width: 140px;
+
+}
+
+.muneNavegador li:hover > ul{
+    display: block;
+}
+
+.success { color: green; }
+.error { color: red; }
+.warning { color: red; }
+
+
+/* Botones del index*/
+/*#1976d2 */
+.boton {
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: white;
+    margin: 0 5px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  /*Inicio*/
+  .boton-inicio {
+    background-color: #000000;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .boton-inicio:hover {
+    background-color: #4e4f50;
+    text-decoration: none;
+  }
+  
+  /* Iniciar sesión*/
+  .boton-login {
+    background-color: #000000;
+    text-decoration: none;
+  }
+  
+  .boton-login:hover {
+    background-color: #4e4f50;
+    text-decoration: none;
+  }
+  
+  /* Registrarse*/
+  .boton-registro {
+    background-color: #000000;
+    text-decoration: none;
+  }
+  
+  .boton-registro:hover {
+    background-color: #4e4f50;
+    text-decoration: none;
+  }
+  
+  /* Eventos*/
+  .boton-eventos {
+    background-color: #000000;
+    text-decoration: none;
+  }
+  
+  .boton-eventos:hover {
+    background-color: #4e4f50;
+    text-decoration: none;
+  }
+  
+  /* Cerrar sesión (rojo) */
+  .boton-cerrar {
+    background-color: #d32f2f;
+    text-decoration: none;
+  }
+  
+  .boton-cerrar:hover {
+    background-color: #611a1a;
+    text-decoration: none;
+  }
+  

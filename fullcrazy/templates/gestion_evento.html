@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/gestion_evento.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+
+    <section class="hero">
+        <div id="texto-wrap">
+            {% if request.session.auth.rol == 'director' %}
+                <h1>DIRECTOR</h1>
+            {% elif request.session.auth.rol == 'administrador' %}
+                <h1>ADMINISTRADOR</h1>
+            {% endif %}
+        </div>
+    </section>
+
+
+    <div>
+        <nav class="navegacionDirector">
+            {% if request.session.auth.rol == 'director' %}
+                <a class="linksNavegacion" href="{% url 'director' %}">CUENTA</a>
+                <a class="linksNavegacion" href="{% url 'historial_eventos' %}">HISTORIAL DE EVENTOS</a>
+                <a id="actual" class="linksNavegacion" href="{% url 'gestion_evento' %}">ESTADISTICAS DEL EVENTO</a>
+                &nbsp; &nbsp; &nbsp;
+                <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+            {% elif request.session.auth.rol == 'administrador' %}
+                <a class="linksNavegacion" href="{% url 'listar_clientes' %}">GESTION CLIENTES</a>
+                <a class="linksNavegacion" href="{% url 'listar_eventos' %}">GESTION DE EVENTOS</a>
+                <a class="linksNavegacion" href="{% url 'listar_facturas' %}">FACTURAS</a>
+                <a class="linksNavegacion" href="{% url 'listar_detalle_facturas' %}">DETALLE FACTURAS</a>
+                &nbsp; &nbsp; &nbsp;
+                <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+                <a id="actual" class="linksNavegacion" href="{% url 'gestion_evento' %}">GESTION DE TUS EVENTOS</a>
+            {% endif %}
+        </nav>
+    </div>
+
+
+    <div class="informacion">
+        <div id="myChart" style="max-width:1800px; height:400px"></div>
+    </div>
+
+    <hr>
+    
+    <div class="informacion">
+        <div id="piechart" style="width: 900px; height: 500px;"></div>
+    </div>
+
+
+
+    {{ datos_eventos|json_script:"datosEventos" }}
+    {{ datos_participantes|json_script:"datosParticipantes" }}
+
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="{% static 'js/ganancias_chart.js' %}"></script>
+    <script src="{% static 'js/participantes_chart.js' %}"></script>
+
+
+{% endblock %}

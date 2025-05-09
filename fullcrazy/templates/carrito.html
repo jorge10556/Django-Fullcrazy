@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %} - Carrito {% endblock %}
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'css/carrito.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+
+    <section class="hero"></section>
+
+
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}
+
+
+    <div id="divisionPrincipal">
+        <div id="divisionIzquierda">
+            {% for servicio in servicios %}
+            <div class="contenidoCarrito">
+                <div>
+                    <img class="imagenProducto" src="{{ servicio.imagen }}" alt="imagen">
+                </div>
+                <div class="informacionGeneral">
+                    <div class="informacionProducto">
+                        <h4>{{ servicio.titulo }}</h6>
+                        <h4>PRECIO: {{ servicio.precio }} </h4>
+                        <h4>CANTIDAD: {{ servicio.cantidad }} </h4>
+                        <p>SUBTOTAL: {{ servicio.subtotal }} </p>
+                    </div>
+                    
+                    <div class="otrasOpciones">
+                        <form method="POST" action="{% url 'actualizar_cantidad' servicio.id %}">
+                            {% csrf_token %}
+                            <input type="number" name="cantidad" value="{{ servicio.cantidad }}" min="1" max="4" required>
+                            <button type="submit">Actualizar</button>
+                        </form>
+
+                        <a href="{% url 'eliminar_carrito' servicio.id %}">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div id="divisionDerecha">
+            <div id="informacionPago">
+                <h4>Orden</h4>
+                <hr>
+                <h4><strong>Total: ${{ total }}</strong></h4>
+
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto" id="botonPago">
+                <form action="{% url 'formulario_pago' %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit">Finalizar Compra</button>
+                </form>
+            </div>
+            <div>
+                <p><i class="bi bi-safe-fill" id="iconos"></i> No se le cobrará hasta que revise el pedido en la página siguiente.</p>
+                <p><i class="bi bi-patch-check-fill" id="iconos"></i>Pago seguro, tenemos grandes estándares de seguridad al momento de hacer una compra con nosotros.</p>
+                <p><i class="bi bi-shield-lock-fill" id="iconos"></i>¡Su privacidad es nuestra prioridad! Puede estar tranquilo, ya que su información estará protegida y libre de riesgos.</p>
+                <p><i class="bi bi-database-fill-check" id="iconos"></i>Nuestra comunidad sigue creciendo gracias a quienes eligen comprar con nosotros una y otra vez. Tu confianza es nuestra mejor garantía.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

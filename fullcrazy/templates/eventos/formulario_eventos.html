@@ -1,0 +1,74 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/crear_evento.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+        <a href="{% url 'listar_eventos' %}">←</a>
+        {% if servicio %}
+        <h2>ACTUALIZAR</h2>
+        {% else %}
+        <h2>CREAR EVENTO</h2>
+        {% endif %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="espacio">
+                <input value="{% if servicio %}{{ servicio.titulo }}{% else %}{{ form_data.titulo|default:'' }}{% endif %}" type="text" name="titulo" placeholder="Titulo" >
+            </div>
+            <div class="espacio">
+                <textarea type="text" name="informacion" id="" placeholder="Toda la información del evento" rows="2" >{% if servicio %}{{ servicio.informacion }}{% else %}{{ form_data.informacion|default:'' }}{% endif %}</textarea>   
+            </div>
+            <div class="espacio">
+                <input value="{% if servicio %}{{ servicio.precio }}{% else %}{{ form_data.precio|default:'' }}{% endif %}" type="number" name="precio" placeholder="Precio en pesos colombianos" >
+                <input value="{% if servicio %}{{ servicio.categoria }}{% else %}{{ form_data.categoria|default:'' }}{% endif %}" type="text" name="categoria" placeholder="Categoria" >
+            </div>
+            <div class="espacio solo">
+                <textarea type="text" name="requisito" id="" placeholder="Requisitos necesarios para las personas que van a asistir" rows="1"  >{% if servicio %}{{ servicio.requisito }}{% else %}{{ form_data.requisito|default:'' }}{% endif %}</textarea>   
+            </div>
+            <div class="espacio">
+                <input value="{% if servicio %}{{ servicio.fecha|date:'Y-m-d\\TH:i' }}{% else %}{{ form_data.fecha|date:'Y-m-d\\TH:i' }}{% endif %}" type="datetime-local" name="fecha" placeholder="Fecha del evento" min="{{fecha_actual}}" >
+                <input value="{% if servicio %}{{ servicio.cupo_maximo }}{% else %}{{ form_data.cupo_maximo|default:'' }}{% endif %}" type="number" name="cupo_maximo" id="" placeholder="cantidad maxima de personas" >
+                <input value="{% if servicio %}{{ servicio.cupos_vendidos }}{% else %}{{ form_data.cupos_vendidos|default:'' }}{% endif %}" type="number" name="cupos_vendidos" id="" placeholder="cupos vendidos" >
+            </div>
+            <div id="subir_imagen">
+                <input type="file" name="imagen" id="imagen" accept="image/*" >
+            </div> 
+            {% if servicio %}
+            <p>Imagen actual:</p>
+            <div id="imagen_actual">
+                <img src="{{ servicio.imagen.url }}" alt="Imagen del servicio" style="max-width: 200px;" >
+            </div>
+            {% endif %}
+
+            <div class="espacio">
+                <input value="{% if servicio %}{{ servicio.direccion }}{% else %}{{ form_data.direccion|default:'' }}{% endif %}" type="text" name="direccion" placeholder="Direccion del evento" >
+            </div>
+
+            {% if servicio %}
+            <div class="espacio solo">
+                <select name="estado" id="estado" >
+                    <option value="" disabled {% if not servicio and not form_data.estado %} selected {% endif %}>Selecciona un rol</option>
+                    <option value= "disponible" {% if servicio.estado == "disponible" or form_data.estado == 'disponible' %} selected {% endif %}>Disponible</option>
+                    <option value= "indisponible" {% if servicio.estado == "indisponible" or form_data.estado == 'indisponible' %} selected {% endif %}>No disponible</option>
+                </select>
+            </div>
+            {% endif %}
+
+            <select name="idCliente" class="espacio" id="idCliente" >
+                <option value="" disabled selected>Selecciona la persona que crea el servicio</option>
+                {% for c in clientes %}
+                    <option value="{{ c.id }}" {% if c.id == cliente_seleccionado %} selected {% endif %} >{{ c.id }} // {{ c.nombre }}  {{c.apellido}}</option>
+                {% endfor %}
+            </select>
+            
+            
+            <div id="aceptarTerminos">
+                <input type="checkbox" name="aceptar" id="" >
+                <label for="">Acepto los <a href="terminos.html" target="_BLANK">terminos y condiciones.</a></label>
+            </div>
+
+            <button class="enviar" id="botoncrear" type="submit">{% if datos %}ACTUALIZAR{% else %}CREAR SERVICIO{% endif %}</button>
+        </form>
+{% endblock %}
+

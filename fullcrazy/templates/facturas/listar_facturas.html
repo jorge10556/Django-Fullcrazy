@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/gestion_datos.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+    <section class="hero">
+        <div id="texto-wrap">
+            <h1>ADMINISTRADOR</h1>
+        </div>
+    </section>
+
+    <div id="divisionIzquierda">
+        <nav class="navegacionDirector">
+            <a class="linksNavegacion" href="{% url 'listar_clientes' %}">GESTION CLIENTES</a>
+            <a class="linksNavegacion" href="{% url 'listar_eventos' %}">GESTION DE EVENTOS</a>
+            <a id="actual" class="linksNavegacion" href="{% url 'listar_facturas' %}">FACTURAS</a>
+            <a class="linksNavegacion" href="{% url 'listar_detalle_facturas' %}">DETALLE FACTURAS</a>
+            &nbsp; &nbsp; &nbsp;
+            {% if factura %}
+                <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+            {% endif %}
+            {% if servicios %}
+                <a class="linksNavegacion" href="{% url 'gestion_evento' %}">GESTION DE TUS EVENTOS</a>
+            {% endif %}
+        </nav>
+    </div>
+
+    <h2 class="titulosCliente">FACTURAS</h2>
+
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}
+
+    {% if facturas %}
+        <div class="informacion">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Metodo_pago</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                        <tr>
+                            <td>{{ factura.id }}</td>
+                            <td>{{ factura.idCliente.nombre }} {{ factura.idCliente.apellido }}</td>
+                            <td>{{ factura.fecha }}</td>
+                            <td>{{ factura.metodoPago }}</td>
+                            <td>{{ factura.total }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <p>No hay datos aun...</p>
+    {% endif %}
+
+{% endblock %}

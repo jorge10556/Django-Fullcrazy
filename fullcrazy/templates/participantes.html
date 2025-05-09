@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block estilos %} 
+    <link rel="stylesheet" href="{% static 'css/gestion_datos.css' %}"> 
+{% endblock %}
+
+{% block cuerpo %}
+    <section class="hero">
+        <div id="texto-wrap">
+            <h1>DIRECTOR</h1>
+        </div>
+    </section>
+
+    {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {% else %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {% endif %}
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+                </div>
+            {% endfor %}
+        </div>    
+    {% endif %}
+
+    <div >
+        <nav class="navegacionDirector">
+            <a class="linksNavegacion" href="{% url 'director' %}">CUENTA</a>
+            <a id="actual" class="linksNavegacion" href="{% url 'historial_eventos' %}">HISTORIAL DE EVENTOS</a>
+            <a class="linksNavegacion" href="{% url 'gestion_evento' %}">ESTADISTICAS DEL EVENTO</a>
+            <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+        </nav>
+    </div>
+
+
+
+
+    {% if detalle_factura %}
+    <div class="informacion">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in detalle_factura %}
+                    <tr>
+                        <th>{{ detalle.idFactura.idCliente.nombre }}  {{ detalle.idFactura.idCliente.apellido }}</th>
+                        <td>{{ detalle.cantidad }}</td>
+                        <td>{{ detalle.totalNoComision }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <p>no hay datos aun...</p>
+    {% endif %}
+{% endblock %}
+

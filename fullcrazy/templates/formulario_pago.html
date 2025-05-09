@@ -1,0 +1,53 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block titulo %} - Formulario_Pago {% endblock %}
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/crear_evento.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+        <form action="{% url 'procesar_pago' %}" method="POST">
+            {% csrf_token %}
+
+            <a href="{% url 'carrito_vista' %}">←</a>
+
+            <div class="espacio solo">
+                <select name="metodo_pago">
+                    <option value="" disabled selected>Metodo de pago</option>
+                    <option value="1">Tarjeta de Crédito</option>
+                    <option value="2">Tarjeta de Débito</option>
+                </select>
+            </div>
+            <div class="espacio solo">
+                <input type="text" name="titular" placeholder="Titular de la tarjeta" required><br>
+            </div>
+            <div class="espacio solo">
+                <input type="number" name="numero_tarjeta" placeholder="Numero de la tarjeta" required>
+            </div>
+            <div class="espacio">
+                <select name="mes" id="mes" required>
+                    <option value="" disabled selected>MM</option>
+                    {% for mes in meses %}
+                        <option value="{{mes}}">{{mes}}</option>
+                    {% endfor %}
+                </select>
+                
+                <select name="anos" id="anos">
+                    <option value="" disabled selected>AAAA</option>
+                    {% for ano in anos %}
+                      <option value="{{ ano }}">{{ ano }}</option>
+                    {% endfor %}
+                </select>
+                
+                <input type="number" name="ccv" placeholder="CCV" required>
+                
+            </div>
+
+            <div id="aceptarTerminos">
+                <input type="checkbox" name="aceptar" id="" required>
+                <label for="">Acepto los <a href="terminos.html" target="_BLANK">terminos y condiciones.</a></label>
+            </div>
+
+            
+            <button class="enviar" id="botoncrear" type="submit">PAGAR</button>
+        </form>
+{% endblock %}

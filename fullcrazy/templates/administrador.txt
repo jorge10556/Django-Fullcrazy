@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block estilos %} <link rel="stylesheet" href="{% static 'css/administrador.css' %}"> {% endblock %}
+
+{% block cuerpo %}
+    <section class="hero" >
+        <div id="texto-wrap">
+            <h1>ADMINISTRADOR</h1>
+        </div>
+    </section>  
+
+    <div >
+        <nav class="navegacionAdministrador">
+            <a id="actual" class="linksNavegacion" href="{% url 'administrador' %}">CUENTA</a>
+            <a class="linksNavegacion" href="{% url 'listar_clientes' %}">GESTION CLIENTES</a>
+            <a class="linksNavegacion" href="{% url 'listar_servicios' %}">GESTION SERVICIOS</a>
+
+        </nav>
+    </div>
+    
+    <div class="informacion">
+        <h4 id="infoPer">Informacion Personal</h4>
+        <h4>Nombre: </h4>
+        <h4>Apellido: </h4>
+        <h4>Telefono: </h4>
+        <h4>Tipo de documento: </h4>
+        <h4>Numero de documento: </h4>
+        <h4>Email: </h4>
+        <a href="#">Editar</a>    <!-- correjir -->
+    </div>
+
+
+{% endblock %}
