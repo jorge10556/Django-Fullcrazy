@@ -1,0 +1,176 @@
+.contenido-evento {
+    display: flex;
+    margin: 20px 100px;
+    justify-content: center;
+}
+
+.imagen-evento {
+    margin-right: 20px;
+    max-width: 500px;
+    width: 500px;
+    height: 600px;
+    max-height: 600px;
+
+}
+
+#imagenradio {
+    border-radius: 10px;
+    max-width: 500px;
+    width: 500px;
+    height: 600px;
+    max-height: 600px;
+}
+
+.detalle-evento {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 650px;
+    width: 650px;
+}
+
+.detalle-evento h1 {
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.detalle-evento p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.controls {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.controls label {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.controls input[type="number"] {
+    width: 80px;
+    padding: 5px;
+    margin: 5px 0px;
+}
+
+.controls button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 5px 0px 10px;
+}
+
+.controls button:hover {
+    background-color: #0056b3;
+}
+
+
+.contenedor {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+
+.eventos {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+.eventos h2 {
+    margin-bottom: 20px;
+}
+
+.eventos .evento {
+    display: inline-block;
+    width: 22.6%;
+    margin: 0 1%;
+    text-align: center;
+}
+
+.eventos .evento img {
+    width: 100%;
+    height: 350px;
+    background: #ddd;
+    border-radius: 10px;
+}
+
+
+
+#letrasimilares {
+    text-align: center;
+}
+
+p{
+    margin: px;
+}
+
+
+@media (max-width: 1260px) {
+    .imagen-evento {
+        max-width: 350px;
+        max-height: 850px;
+        margin-right: 10px;
+        background-color: #ffffff;
+    }
+
+    #imagenradio {
+        max-width: 350px;
+        max-height: 850px;
+    }
+
+    .eventos-similares .evento img {
+        width: 100%;
+        height: 250px;
+        background: #ddd;
+        border-radius: 10px;
+        margin: 5px 10px;
+        border: 1px solid black;
+    }
+
+    .eventos-similares {
+        margin: 5px;
+    }
+
+}
+
+@media (max-width: 827px) {
+    .contenido-evento {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin: 10px;
+    }
+
+    .imagen-evento {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        align-items: center;
+
+    }
+
+    #imagenradio {
+        width: 350px;
+    }
+
+    .eventos-similares {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+}

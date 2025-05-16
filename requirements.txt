@@ -1,6 +1,6 @@
 #pip freeze > requirements.txt
 # pip install -r requirements.txt
-Django==4.0.6
+Django==4.2
 django-chartjs==2.3.0
-Pillow==9.3.0
-WeasyPrintnt
+Pillow==11.2.1
+WeasyPrint==65.1

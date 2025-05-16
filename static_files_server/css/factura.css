@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff;
+    color: black;
+}
+
+
+#comienzo{
+    display:flex;
+    justify-content: space-between;
+}
+
+#comienzo h1{
+    margin: 60px 60px 2px;
+}
+
+#comienzo h3{
+    margin: 0px 60px 2px;
+}
+
+#imagenLogo{
+    margin: 30px 50px 2px;
+}
+#imagenFactura{
+    border-radius: 65px;
+    width:100% ;
+    max-width: 120px;
+    min-width: 120px;
+}
+
+.contenedoresFactura{
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    margin: 60px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 5px;
+    color: #000000;
+}
+
+#contenedorFecha{
+    text-align: center;
+    background-color: #006ab1;
+    color: white;
+}
+
+#contenedorServicios{
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+#contenedorServicios h5 {
+    margin: 10px 10px 2px;
+}
+
+#contenedorServicios h6{
+    margin: 10px ;
+}
+
+#contenedorEnvio{
+    border: 1px solid #000000;
+    padding: 10px;
+}
+
+#contenedorEnvio h5 {
+    margin: 10px 10px 2px;
+}
+
+#contenedorEnvio h6{
+    margin: 10px ;
+}
+
+#infoPago{
+    text-align: center;
+    background-color: #006ab1;
+    color: white;
+}
+
+#info2Pago{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000000;
+    padding-left: 10px;
+    padding-right: 100px;
+}

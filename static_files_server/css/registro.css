@@ -1,0 +1,65 @@
+body {
+    background-image: url(/static/img/photo-1459749411175-04bf5292ceea.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+.espacio {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.espacio input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.espacio.solo input {
+    width: 100%;
+}
+.espacio.solo {
+    display: flex;
+}
+.espacio input:focus {
+    outline: none;
+    border-color: #000000;
+}
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#botoncrear{
+    color: #ffffff;
+}
+
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+#aceptarTerminos{
+    display: flex;
+    flex-direction: row;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    appearance: none; 
+}
