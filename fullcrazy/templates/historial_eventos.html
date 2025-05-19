@@ -12,12 +12,25 @@
 
     <div >
         <nav class="navegacionDirector">
-            <a class="linksNavegacion" href="{% url 'director' %}">CUENTA</a>
-            <a id="actual" class="linksNavegacion" href="{% url 'historial_eventos' %}">HISTORIAL DE EVENTOS</a>
-            <a class="linksNavegacion" href="{% url 'gestion_evento' %}">ESTADISTICAS DEL EVENTO</a>
-            &nbsp; &nbsp; &nbsp;
-            <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
-
+            {% if request.session.auth.rol == 'director' %}
+                <a class="linksNavegacion" href="{% url 'director' %}">CUENTA</a>
+                <a class="linksNavegacion" href="{% url 'historial_eventos' %}">HISTORIAL DE EVENTOS</a>
+                <a id="actual" class="linksNavegacion" href="{% url 'gestion_evento' %}">ESTADISTICAS DEL EVENTO</a>
+                &nbsp; &nbsp; &nbsp;
+                <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+            {% elif request.session.auth.rol == 'administrador' %}
+                <a class="linksNavegacion" href="{% url 'listar_clientes' %}">GESTION CLIENTES</a>
+                <a class="linksNavegacion" href="{% url 'listar_eventos' %}">GESTION DE EVENTOS</a>
+                <a class="linksNavegacion" href="{% url 'listar_facturas' %}">FACTURAS</a>
+                <a class="linksNavegacion" href="{% url 'listar_detalle_facturas' %}">DETALLE FACTURAS</a>
+                &nbsp; &nbsp; &nbsp;
+                {% if factura %}
+                    <a class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+                {% endif %}
+                {% if servicio %}
+                    <a id="actual" class="linksNavegacion" href="{% url 'gestion_evento' %}">GESTION DE TUS EVENTOS</a>
+                {% endif %}
+            {% endif %}
         </nav>
     </div>
 

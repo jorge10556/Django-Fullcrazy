@@ -73,6 +73,7 @@ urlpatterns = [
 
     path("factura_pdf/<int:id_factura>/pdf/", views.factura_pdf, name="factura_pdf"),
 
+    path("backup/", views.backup, name="backup"),
 
 ]
 

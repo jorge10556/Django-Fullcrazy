@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "//home/manana/Documentos/django-fullcrazy/Django-Fullcrazy/backup_cron.py", line 23, in <module>
+    from spa.utils import *  # Ajusta la ruta de importación cambiar "spa" por su aplicación
+ModuleNotFoundError: No module named 'spa'

@@ -31,7 +31,8 @@ from django.db.models import Sum
 from django.template.loader import render_to_string
 from weasyprint import HTML
 
-
+#para copía de seguridad
+import os, time
 
 
 
@@ -715,10 +716,19 @@ def gestion_evento(request):
         # Participantes (cupos vendidos)
         datos_participantes.append([servicio.titulo, servicio.cupos_vendidos])
 
+
+
+    f = Factura.objects.filter(idCliente__id=id_cliente).exists()
+    s = Servicio.objects.filter(idCliente__id=id_cliente).exists()
+    
+
     # Limitar solo a los primeros 10
     contexto = {
         'datos_eventos': datos_ganancias[:10],
         'datos_participantes': datos_participantes[:10],
+        "id_cliente":id_cliente,
+        "servicio":s,
+        "factura":f,
     }
 
     return render(request, 'gestion_evento.html', contexto)
@@ -740,11 +750,19 @@ def eventos_comprados(request):
     factura = Factura.objects.filter(idCliente = cliente)
 
     detalleFactura = DetalleFactura.objects.filter(idFactura__in = factura)
+    
+    
+    f = Factura.objects.filter(idCliente__id=id_cliente).exists()
+    s = Servicio.objects.filter(idCliente__id=id_cliente).exists()
+    
 
     contexto = {
         "cliente":cliente,
         "factura":factura,
-        "detalle_factura":detalleFactura
+        "detalle_factura":detalleFactura,
+        "id_cliente":id_cliente,
+        "servicio":s,
+        "factura":f,
     }
 
 
@@ -2315,9 +2333,18 @@ def listar_facturas(request):
         return redirect("index") 
     
     facturas = Factura.objects.all()
+    
+
+    f = Factura.objects.filter(idCliente__id=id_cliente).exists()
+    s = Servicio.objects.filter(idCliente__id=id_cliente).exists()
+
 
     contexto = {
-        "facturas":facturas
+        "facturas":facturas,
+        "servicio":s,
+        "factura":f,
+        "id_cliente":id_cliente
+
     }
 
     return render(request, "facturas/listar_facturas.html", contexto)
@@ -2346,10 +2373,17 @@ def listar_detalle_facturas(request):
         messages.error(request, "debe ser un administrador para ingresar aqui")
         return redirect("index")
     
-    datos = DetalleFactura.objects.all()
+    datos = DetalleFactura.objects.all()    
+
+    f = Factura.objects.filter(idCliente__id=id_cliente).exists()
+    s = Servicio.objects.filter(idCliente__id=id_cliente).exists()
+
 
     contexto = {
-        "detalle_facturas":datos
+        "detalle_facturas":datos,
+        "id_cliente":id_cliente,
+        "servicio":s,
+        "factura":f,
     }
 
     return render(request, "detalle_facturas/listar_detalle_facturas.html", contexto)
@@ -2387,5 +2421,43 @@ def factura_pdf(request, id_factura):
     response['Content-Disposition'] = f'inline; filename="factura_{id_factura}.pdf"'
     return response
 
+
+
+
+
+
+# Copia de seguridad manual usando la utilidad de envío de correo con adjuntos
+
+def backup(request):
+    # configuración de rutas a comprimir:
+    file_to_compress = '/home/manana/Documentos/django-fullcrazy/Django-Fullcrazy/db.sqlite3'
+    zip_archive_name = '/home/manana/Documentos/django-fullcrazy/Django-Fullcrazy/db.sqlite3.zip'
+    compress_file_to_zip(file_to_compress, zip_archive_name)
+    print("...")
+    time.sleep(2)
+    print("Compresión correcta...!")
+    print("...")
+    
+    # envío de correo con .zip adjunto
+
+    subject = "Spa SENA - Backup"
+    body = "Copia de Seguridad de la Base de Datos del Proyecto Spa SENA"
+    to_emails = ['montoyarojasimon@gmail.com']
+
+    # Ejemplo de un archivo adjunto (podrías leerlo de un archivo real)
+    file_path = zip_archive_name
+"""    if os.path.exists(zip_archive_name):
+        with open(file_path, 'rb') as f:
+            file_content = f.read()
+        attachments = [('db.sqlite3.zip', file_content, 'application/zip')]
+    else:
+        attachments = None
+"""
+    if send_email_with_attachment(subject, body, to_emails, attachments):
+        print("Correo electrónico enviado con éxito.")
+        return HttpResponse("Correo electrónico enviado con éxito.")
+    else:
+        print("Error al enviar el correo electrónico.")
+        return HttpResponse("Error al enviar el correo electrónico.")
 
 

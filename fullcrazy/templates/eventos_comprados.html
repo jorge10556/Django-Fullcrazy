@@ -36,8 +36,12 @@
                 <a class="linksNavegacion" href="{% url 'listar_facturas' %}">FACTURAS</a>
                 <a class="linksNavegacion" href="{% url 'listar_detalle_facturas' %}">DETALLE FACTURAS</a>
                 &nbsp; &nbsp; &nbsp;
-                <a id="actual" class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
-                <a class="linksNavegacion" href="{% url 'gestion_evento' %}">GESTION DE TUS EVENTOS</a>
+                {% if factura %}
+                    <a id="actual" class="linksNavegacion" href="{% url 'eventos_comprados' %}">EVENTOS COMPRADOS</a>
+                {% endif %}
+                {% if servicio %}
+                    <a class="linksNavegacion" href="{% url 'gestion_evento' %}">GESTION DE TUS EVENTOS</a>
+                {% endif %}
             {% endif %}
         </nav>
     </div>
